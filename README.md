@@ -1,6 +1,6 @@
-# Aloha · Food Hub Funding Directory
+# The Funding Directory
 
-A simple public website that helps food hub operators, especially new hubs, find grants, loans and state programs that fit their stage and state. Built from Aloha's Food Hub Funding Directory research (federal, private and state programs for all 50 states and DC, last checked 2026-11-22).
+A simple public website that helps food hub operators, especially new hubs, find grants, loans and state programs that fit their stage and state. Built from our Food Hub Funding Directory research (federal, private and state programs for all 50 states and DC, last checked 2026-11-22).
 
 ## Pages
 
@@ -35,4 +35,4 @@ Vercel deploys automatically from `main`. No environment variables are needed.
 
 ## Style
 
-Colors come from the Aloha Playbook deck: cream background, teal, dark green `#1F5C5B`, brown `#5B3A29` and a hibiscus coral accent, set in Manrope.
+Colors come from the project deck: cream background, teal, dark green `#1F5C5B`, brown `#5B3A29` and a hibiscus coral accent, set in Manrope.

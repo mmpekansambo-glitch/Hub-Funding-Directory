@@ -30,12 +30,13 @@ export default function Layout() {
           <Link to="/" className="brand">
             <Flower />
             <span>
-              <strong>Aloha</strong>
-              <small>Food Hub Funding Directory</small>
+              <strong>The Funding Directory</strong>
+              <small>for food hubs</small>
             </span>
           </Link>
           <nav className="nav">
-            <NavLink to="/programs">Programs</NavLink>
+            <NavLink to="/" end>Directory</NavLink>
+            <NavLink to="/browse">Browse</NavLink>
             <NavLink to="/states">By state</NavLink>
             <NavLink to="/about">About</NavLink>
           </nav>
@@ -49,10 +50,9 @@ export default function Layout() {
       <footer className="footer">
         <div className="wrap footer-inner">
           <p>
-            <strong>Aloha</strong> · a food hub funding directory. Programs were last checked on{' '}
+            <strong>The Funding Directory</strong> · grants, loans and state programs for food hubs. Programs were last checked on{' '}
             {data?.verified || '2026-11-22'}. Always confirm details with the funder before applying.
           </p>
-          <p className="muted">Built from Aloha's Food Hub Funding Directory research.</p>
         </div>
       </footer>
     </div>

@@ -1,4 +1,4 @@
--- Aloha Food Hub Funding Directory: tables for Supabase.
+-- The Funding Directory: tables for Supabase.
 -- Run this once in the Supabase SQL editor, then run supabase/seed.sql.
 
 create table if not exists public.programs (

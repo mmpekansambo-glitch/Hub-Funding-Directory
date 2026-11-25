@@ -11,8 +11,8 @@ export default function About() {
         foundations.
       </p>
       <p>
-        Aloha started as a student team studying how regional food hubs survive. In interview after interview,
-        operators told us the same thing: finding the right grant, knowing whether they qualify, and deciding
+        The Funding Directory started as a student project studying how regional food hubs survive. The hub
+        operators we interviewed kept telling us the same thing: finding the right grant, knowing whether they qualify, and deciding
         between a grant and their own revenue takes time a small hub doesn't have.
       </p>
       <p>
@@ -31,7 +31,7 @@ export default function About() {
         Funding rounds open, close and change every year. If you know about a program we're missing or a detail
         that's changed, we'd love to hear from you.
       </p>
-      <Link to="/programs" className="btn">Browse programs</Link>
+      <Link to="/" className="btn">Browse programs</Link>
     </div>
   )
 }

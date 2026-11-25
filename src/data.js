@@ -43,6 +43,30 @@ export const STATUS_LABEL = {
   check: 'Check dates',
 }
 
+export const NEEDS = [
+  { key: 'planning', label: 'Planning & feasibility', hint: 'Studies, business plans, technical help', re: /feasib|business plan|planning|market stud|technical assistance/ },
+  { key: 'equipment', label: 'Equipment', hint: 'Coolers, packing lines, forklifts', re: /equipment/ },
+  { key: 'facilities', label: 'Buildings & facilities', hint: 'Buy, build or renovate space', re: /facilit|construct|real estate|building|renovat|land/ },
+  { key: 'cold', label: 'Cold storage & processing', hint: 'Keep product fresh, add value', re: /cold|storage|processing|refrigerat|packing/ },
+  { key: 'capital', label: 'Working capital', hint: 'Inventory, payroll, lines of credit', re: /working capital|inventory|operating|line of credit|lines of credit/ },
+  { key: 'distribution', label: 'Distribution & trucks', hint: 'Aggregation, delivery, logistics', re: /distribut|transport|truck|vehicle|aggregat|logistic/ },
+  { key: 'schools', label: 'Schools & institutions', hint: 'Farm to school, hospitals, buyers', re: /school|institution|hospital/ },
+  { key: 'access', label: 'Food access', hint: 'Serving underserved communities', re: /underserved|food access|healthy food|low-income|snap/ },
+]
+
+export const KINDS = [
+  { key: 'grant', label: 'Grants', re: /grant/ },
+  { key: 'loan', label: 'Loans & guarantees', re: /loan|lend|guarant|credit|financ/ },
+]
+
+// A short "next window" line for the listing table: the first clause of the sheet's deadline text.
+export function shortWindow(cycle = '') {
+  let t = cycle.replace(/^UNVERIFIED:\s*/i, '').split(/(?<=[.;])\s/)[0].replace(/[.;]$/, '')
+  if ((t.match(/\(/g) || []).length > (t.match(/\)/g) || []).length) t += ')'
+  if (t.length > 70) t = t.slice(0, 67).replace(/\s+\S*$/, '') + '…'
+  return t || 'Not stated'
+}
+
 export function isNational(p) {
   return p.level === 'Federal' || /^(all|national|varies)/i.test(p.state || '')
 }
@@ -53,6 +77,9 @@ function enrich(raw) {
     stages: parseStages(p.hub_stage),
     status: windowStatus(p.cycle_deadline),
     national: isNational(p),
+    needs: NEEDS.filter((n) => n.re.test(`${p.funds_what} ${p.program}`.toLowerCase())).map((n) => n.key),
+    kinds: KINDS.filter((k) => k.re.test(`${p.funds_what} ${p.program} ${p.award_range}`.toLowerCase())).map((k) => k.key),
+    window: shortWindow(p.cycle_deadline),
   }))
   const states = raw.states.map((s) => ({ ...s, name: STATE_NAMES[s.state] || s.state }))
   return { ...raw, programs, states }
@@ -65,9 +92,13 @@ export async function loadData() {
   if (url && key) {
     try {
       const sb = createClient(url, key)
-      const [p, s] = await Promise.all([
-        sb.from('programs').select('*').order('id').range(0, 4999),
-        sb.from('states').select('*').order('state'),
+      const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase timed out')), 6000))
+      const [p, s] = await Promise.race([
+        Promise.all([
+          sb.from('programs').select('*').order('id').range(0, 4999),
+          sb.from('states').select('*').order('state'),
+        ]),
+        timeout,
       ])
       if (p.error) throw p.error
       if (s.error) throw s.error

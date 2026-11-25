@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useData } from '../DataContext.jsx'
 import { STATE_NAMES } from '../data.js'
-import ProgramCard from '../components/ProgramCard.jsx'
+import ProgramTable from '../components/ProgramTable.jsx'
 import NotFound from './NotFound.jsx'
 
 export default function StatePage() {
@@ -28,9 +28,8 @@ export default function StatePage() {
         <div className="wide"><span>Largest available award</span><strong className="small">{s.largest_award || 'Not stated'}</strong></div>
       </div>
 
-      <h2 className="section-title">Programs in {STATE_NAMES[c]}</h2>
       {programs.length ? (
-        <div className="grid">{programs.map((p) => <ProgramCard key={p.id} p={p} />)}</div>
+        <ProgramTable title={`Programs in ${STATE_NAMES[c]} · ${programs.length}`} programs={programs} />
       ) : (
         <p className="muted">No state-specific programs found yet.</p>
       )}
@@ -52,7 +51,7 @@ export default function StatePage() {
       <div className="callout slim">
         <p>
           Hubs in {STATE_NAMES[c]} can also apply to <strong>{national.length} national programs</strong>.{' '}
-          <Link to={`/programs?state=${c}`}>See everything available in {STATE_NAMES[c]} →</Link>
+          <Link to={`/?state=${c}`}>See everything available in {STATE_NAMES[c]} →</Link>
         </p>
       </div>
     </div>
