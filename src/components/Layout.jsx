@@ -6,13 +6,13 @@ export function Flower({ size = 28 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
       <circle cx="32" cy="32" r="30" fill="var(--green)" />
-      <g fill="var(--coral)">
+      <g fill="var(--sand)">
         <ellipse cx="32" cy="20" rx="7" ry="11" />
         <ellipse cx="32" cy="44" rx="7" ry="11" />
         <ellipse cx="20" cy="32" rx="11" ry="7" />
         <ellipse cx="44" cy="32" rx="11" ry="7" />
       </g>
-      <circle cx="32" cy="32" r="5" fill="var(--sand)" />
+      <circle cx="32" cy="32" r="5" fill="var(--brown)" />
     </svg>
   )
 }

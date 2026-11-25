@@ -35,4 +35,4 @@ Vercel deploys automatically from `main`. No environment variables are needed.
 
 ## Style
 
-Colors come from the project deck: cream background, teal, dark green `#1F5C5B`, brown `#5B3A29` and a hibiscus coral accent, set in Manrope.
+Colors come from the project deck: cream background, teal, dark green `#1F5C5B`, brown `#5B3A29` and blue `#2B7A8B`, set in Manrope. No red or coral.
