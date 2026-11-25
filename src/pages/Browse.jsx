@@ -1,102 +1,143 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useData } from '../DataContext.jsx'
-import { STAGES, STAGE_HINTS, STATE_NAMES, NEEDS, KINDS } from '../data.js'
+import { STAGES, STAGE_HINTS, NEEDS, KINDS, LEVELS } from '../data.js'
+
+const LEVEL_HINTS = {
+  Federal: 'USDA, SBA and other national agencies',
+  State: 'State agriculture and economic development programs',
+  Private: 'CDFIs, lenders, foundations and nonprofits',
+}
+
+const CUTS = [
+  { key: 'stage', label: 'Hub stage', hint: 'Where your hub is today', icon: 'M3 17l6-6 4 4 8-8M14 7h7v7' },
+  { key: 'need', label: 'What it pays for', hint: 'Equipment, buildings, trucks and more', icon: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3' },
+  { key: 'kind', label: 'Type of funding', hint: 'Grants or loans', icon: 'M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' },
+  { key: 'state', label: 'State', hint: 'All 50 states and DC', icon: 'M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11zM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z' },
+  { key: 'funder', label: 'Funder', hint: 'Federal, state or private', icon: 'M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6' },
+]
+
+function Icon({ d }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={d} />
+    </svg>
+  )
+}
+
+function Option({ to, title, hint, count }) {
+  return (
+    <Link to={to} className="card need-card">
+      <h3>{title}</h3>
+      {hint && <p>{hint}</p>}
+      <span className="count">{count} programs →</span>
+    </Link>
+  )
+}
 
 export default function Browse() {
   const { data } = useData()
+  const [params, setParams] = useSearchParams()
+  const by = params.get('by') || ''
+  const panel = useRef(null)
   const real = data.programs.filter((p) => !p.none_found)
   const count = (fn) => real.filter(fn).length
-  const top = data.states.filter((s) => s.rank).sort((a, b) => a.rank - b.rank)
   const states = [...data.states].sort((a, b) => a.name.localeCompare(b.name))
+  const cut = CUTS.find((c) => c.key === by)
+
+  useEffect(() => {
+    if (cut && panel.current) panel.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [by]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const choose = (key) => setParams(key === by ? {} : { by: key }, { replace: true })
 
   return (
-    <>
-      <div className="wrap pad">
-        <p className="kicker">Browse</p>
-        <h1 className="page-title">Find your way in</h1>
-        <p className="muted intro">Pick a starting point and we'll show you the matching programs in the directory.</p>
+    <div className="wrap pad">
+      <p className="kicker">Browse</p>
+      <h1 className="page-title">How do you want to look?</h1>
+      <p className="muted intro">Pick one way to cut the directory, then choose where to go.</p>
 
-        <h2 className="section-title">By hub stage</h2>
-        <div className="stage-grid">
-          {STAGES.map((s, i) => (
-            <Link key={s} to={`/directory?stage=${s}`} className="card stage-card">
-              <span className="step">0{i + 1}</span>
-              <h3>{s}</h3>
-              <p>{STAGE_HINTS[s]}</p>
-              <span className="count">{count((p) => p.stages.includes(s))} programs →</span>
-            </Link>
-          ))}
-        </div>
-
-        <h2 className="section-title spaced-top">By what you need to pay for</h2>
-        <div className="need-grid">
-          {NEEDS.map((n) => (
-            <Link key={n.key} to={`/directory?need=${n.key}`} className="card need-card">
-              <h3>{n.label}</h3>
-              <p>{n.hint}</p>
-              <span className="count">{count((p) => p.needs.includes(n.key))} programs →</span>
-            </Link>
-          ))}
-        </div>
-
-        <h2 className="section-title spaced-top">By type of funding</h2>
-        <div className="need-grid two">
-          {KINDS.map((k) => (
-            <Link key={k.key} to={`/directory?kind=${k.key}`} className="card need-card kind-card">
-              <h3>{k.label}</h3>
-              <span className="count">{count((p) => p.kinds.includes(k.key))} programs →</span>
-            </Link>
-          ))}
-        </div>
-
-        <h2 className="section-title spaced-top">By state</h2>
-        <div className="state-tiles">
-          {states.map((s) => (
-            <Link key={s.state} to={`/states/${s.state}`} className={s.rank ? 'state-tile top' : 'state-tile'} title={s.name}>
-              <strong>{s.state}</strong>
-              <span>{s.name}</span>
-            </Link>
-          ))}
-        </div>
-        <p className="muted small">Highlighted states are the ten strongest funding environments for food hubs.</p>
+      <div className="cuts" role="tablist" aria-label="Ways to browse">
+        {CUTS.map((c) => (
+          <button
+            key={c.key}
+            role="tab"
+            aria-selected={by === c.key}
+            aria-controls="browse-panel"
+            className={by === c.key ? 'cut on' : 'cut'}
+            onClick={() => choose(c.key)}
+          >
+            <span className="ficon"><Icon d={c.icon} /></span>
+            <strong>{c.label}</strong>
+            <small>{c.hint}</small>
+          </button>
+        ))}
       </div>
 
-      <section className="band">
-        <div className="wrap pad split">
-          <div>
-            <p className="kicker">Where you are matters</p>
-            <h2 className="section-title">Strongest state funding environments</h2>
-            <p className="muted">
-              We checked all 50 states and DC for hub-eligible grants, healthy food financing and active food and
-              ag lenders. These ten stood out.
-            </p>
-            <Link to="/states" className="btn">See every state</Link>
+      {cut ? (
+        <section id="browse-panel" role="tabpanel" className="cut-panel" ref={panel}>
+          <div className="cut-panel-head">
+            <h2 className="section-title">Browse by {cut.label.toLowerCase()}</h2>
+            <button className="link" onClick={() => choose(by)}>Close</button>
           </div>
-          <ol className="toplist">
-            {top.map((s) => (
-              <li key={s.state}>
-                <Link to={`/states/${s.state}`}>
-                  <span className="rank">{s.rank}</span>
-                  <span>
-                    <strong>{STATE_NAMES[s.state]}</strong>
-                    <small>{s.why}</small>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
 
-      <section className="wrap pad">
-        <div className="callout">
-          <h2>Only 11.5% of eligible applicants were funded.</h2>
-          <p>
-            That's USDA's Local Food Promotion Program in FY2025. The big federal grants are competitive and their
-            funding is uncertain, so this directory puts state programs, loans and private lenders right beside them.
-          </p>
-        </div>
-      </section>
-    </>
+          {by === 'stage' && (
+            <div className="stage-grid">
+              {STAGES.map((s, i) => (
+                <Link key={s} to={`/directory?stage=${s}`} className="card stage-card">
+                  <span className="step">0{i + 1}</span>
+                  <h3>{s}</h3>
+                  <p>{STAGE_HINTS[s]}</p>
+                  <span className="count">{count((p) => p.stages.includes(s))} programs →</span>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          {by === 'need' && (
+            <div className="need-grid">
+              {NEEDS.map((n) => (
+                <Option key={n.key} to={`/directory?need=${n.key}`} title={n.label} hint={n.hint} count={count((p) => p.needs.includes(n.key))} />
+              ))}
+            </div>
+          )}
+
+          {by === 'kind' && (
+            <div className="need-grid two">
+              {KINDS.map((k) => (
+                <Option key={k.key} to={`/directory?kind=${k.key}`} title={k.label} count={count((p) => p.kinds.includes(k.key))} />
+              ))}
+            </div>
+          )}
+
+          {by === 'funder' && (
+            <div className="need-grid">
+              {LEVELS.map((l) => (
+                <Option key={l} to={`/directory?level=${l}`} title={l} hint={LEVEL_HINTS[l]} count={count((p) => p.level === l)} />
+              ))}
+            </div>
+          )}
+
+          {by === 'state' && (
+            <>
+              <div className="state-tiles">
+                {states.map((s) => (
+                  <Link key={s.state} to={`/directory?state=${s.state}`} className={s.rank ? 'state-tile top' : 'state-tile'} title={s.name}>
+                    <strong>{s.state}</strong>
+                    <span>{s.name}</span>
+                  </Link>
+                ))}
+              </div>
+              <p className="muted small">
+                Highlighted states are the ten strongest funding environments for food hubs.{' '}
+                <Link to="/states">See state profiles →</Link>
+              </p>
+            </>
+          )}
+        </section>
+      ) : (
+        <p className="cut-empty">Choose one of the cards above to see your options.</p>
+      )}
+    </div>
   )
 }

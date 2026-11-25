@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom'
 import { useData } from '../DataContext.jsx'
+import CursorGlow from './CursorGlow.jsx'
 
 export function Flower({ size = 28 }) {
   return (
@@ -24,6 +25,7 @@ export default function Layout() {
 
   return (
     <div className="shell">
+      <CursorGlow />
       <a className="skip" href="#main">Skip to content</a>
       <header className="topbar">
         <div className="wrap topbar-inner">
