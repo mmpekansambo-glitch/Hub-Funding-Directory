@@ -37,3 +37,7 @@ Vercel deploys automatically from `main`. No environment variables are needed.
 ## Style
 
 Colors come from the project deck: cream background, teal, dark green `#1F5C5B`, brown `#5B3A29` and blue `#2B7A8B`, set in Manrope. No red or coral.
+
+## Click test
+
+`npm run test:clicks` builds the site, opens every page and clicks every link and button (nav, rows, browse options, filters, search, save). It fails if a click lands on the wrong page, leaves a blank page, or throws an error. It also runs on every pull request (GitHub Actions). Needs Playwright: `npm i --no-save playwright && npx playwright install chromium`.

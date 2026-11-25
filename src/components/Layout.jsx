@@ -23,7 +23,9 @@ export default function Layout() {
   const { loading, error, data } = useData()
   const { pathname } = useLocation()
   const { ids } = useSaved()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <div className="shell">
