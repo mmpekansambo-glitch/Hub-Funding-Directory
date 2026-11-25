@@ -11,7 +11,7 @@ export default function About() {
         foundations.
       </p>
       <p>
-        The Funding Directory started as a student project studying how regional food hubs survive. The hub
+        The Hub Directory started as a student project studying how regional food hubs survive. The hub
         operators we interviewed kept telling us the same thing: finding the right grant, knowing whether they qualify, and deciding
         between a grant and their own revenue takes time a small hub doesn't have.
       </p>

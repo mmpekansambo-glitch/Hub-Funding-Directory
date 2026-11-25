@@ -64,7 +64,7 @@ export default function Directory() {
       <section className="lookup">
         <div className="wrap">
           <p className="kicker">Grants, loans and state programs for food hubs</p>
-          <h1 className="lookup-title">The Funding Directory</h1>
+          <h1 className="lookup-title">The Hub Directory</h1>
           <div className="lookup-search" role="search">
             <label htmlFor="q" className="sr-only">Search programs</label>
             <input

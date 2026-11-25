@@ -1,4 +1,4 @@
-# The Funding Directory
+# The Hub Directory
 
 A simple public website that helps food hub operators, especially new hubs, find grants, loans and state programs that fit their stage and state. Built from our Food Hub Funding Directory research (federal, private and state programs for all 50 states and DC, last checked 2026-11-22).
 

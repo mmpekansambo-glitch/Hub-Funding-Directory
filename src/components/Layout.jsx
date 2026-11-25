@@ -32,8 +32,8 @@ export default function Layout() {
           <Link to="/" className="brand">
             <Flower />
             <span>
-              <strong>The Funding Directory</strong>
-              <small>for food hubs</small>
+              <strong>The Hub Directory</strong>
+              <small>Funding for food hubs</small>
             </span>
           </Link>
           <nav className="nav">
@@ -52,7 +52,7 @@ export default function Layout() {
       <footer className="footer">
         <div className="wrap footer-inner">
           <p>
-            <strong>The Funding Directory</strong> · grants, loans and state programs for food hubs. Programs were last checked on{' '}
+            <strong>The Hub Directory</strong> · grants, loans and state programs for food hubs. Programs were last checked on{' '}
             {data?.verified || '2026-11-22'}. Always confirm details with the funder before applying.
           </p>
         </div>
