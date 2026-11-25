@@ -3,6 +3,7 @@ import { useData } from '../DataContext.jsx'
 import { STATE_NAMES } from '../data.js'
 import { LevelBadge, StatusBadge, where } from '../components/ProgramCard.jsx'
 import NotFound from './NotFound.jsx'
+import SaveButton from '../components/SaveButton.jsx'
 
 function Row({ label, children }) {
   if (!children) return null
@@ -53,6 +54,7 @@ export default function Program() {
       </dl>
 
       <div className="actions">
+        <SaveButton id={p.id} name={p.program} label />
         {p.url && /^https?:\/\//.test(p.url) && (
           <a className="btn" href={p.url} target="_blank" rel="noopener noreferrer">Go to the source ↗</a>
         )}

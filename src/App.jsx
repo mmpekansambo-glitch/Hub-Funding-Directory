@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Browse from './pages/Browse.jsx'
 import Landing from './pages/Landing.jsx'
+import Saved from './pages/Saved.jsx'
 import Directory from './pages/Directory.jsx'
 import Program from './pages/Program.jsx'
 import States from './pages/States.jsx'
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="states" element={<States />} />
         <Route path="states/:code" element={<StatePage />} />
         <Route path="about" element={<About />} />
+        <Route path="saved" element={<Saved />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

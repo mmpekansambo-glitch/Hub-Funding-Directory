@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom'
 import { useData } from '../DataContext.jsx'
 import CursorGlow from './CursorGlow.jsx'
+import { useSaved } from '../SavedContext.jsx'
 
 export function Flower({ size = 28 }) {
   return (
@@ -21,6 +22,7 @@ export function Flower({ size = 28 }) {
 export default function Layout() {
   const { loading, error, data } = useData()
   const { pathname } = useLocation()
+  const { ids } = useSaved()
   useEffect(() => window.scrollTo(0, 0), [pathname])
 
   return (
@@ -40,6 +42,7 @@ export default function Layout() {
             <NavLink to="/browse">Browse</NavLink>
             <NavLink to="/states">By state</NavLink>
             <NavLink to="/about">About</NavLink>
+            <NavLink to="/saved" className="nav-saved">Saved{ids.length > 0 && <span className="count-badge">{ids.length}</span>}</NavLink>
           </nav>
         </div>
       </header>

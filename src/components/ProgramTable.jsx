@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { where } from './ProgramCard.jsx'
+import SaveButton from './SaveButton.jsx'
 
 export function splitName(name = '') {
   // "Value-Added Producer Grant (VAPG), USDA RD" -> ["Value-Added Producer Grant (VAPG)", "USDA RD"]
@@ -48,6 +49,7 @@ export default function ProgramTable({ title, programs, letters = false, footer 
                 <span className="pt-award"><b className="pt-label">Award</b>{shortAward(p.award_range)}</span>
                 <span className="pt-window"><b className="pt-label">Next window</b>{p.window}</span>
               </Link>
+              <SaveButton id={p.id} name={name} />
             </li>
           )
         })}
