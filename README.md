@@ -19,19 +19,19 @@ npm run dev
 
 ## Data
 
-The site reads from Supabase when `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` are set (see `.env.example`). Without them it uses the bundled `data/directory.json`, so it works with no setup.
+The live site reads from the Supabase project `aloha-hub-funding-directory` (settings in `.env.production`). If Supabase can't be reached, or in local development without those settings, it falls back to the bundled `data/directory.json`.
 
 The Google Sheet stays the place to edit programs. To refresh:
 
 1. Export the sheet into `data/directory.json` (`scripts/sheet-to-json.py`).
 2. Run `npm run seed:sql` to rebuild `supabase/seed.sql`.
-3. In Supabase, run `supabase/schema.sql` once, then `supabase/seed.sql` whenever the data changes.
+3. In the Supabase SQL editor, run `supabase/seed.sql` to replace the data. (`supabase/schema.sql` has already been applied.)
 
 The tables are public read-only (row level security), so the anon key is safe to use in the browser.
 
 ## Deploy
 
-Import this repo in Vercel (framework: Vite). Add the two Supabase variables in the Vercel project settings once the Supabase project exists.
+Vercel deploys automatically from `main`. No environment variables are needed.
 
 ## Style
 
