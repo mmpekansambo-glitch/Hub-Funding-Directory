@@ -25,7 +25,7 @@ export default function Program() {
 
   return (
     <div className="wrap pad narrow">
-      <Link to="/" className="back">← Back to the directory</Link>
+      <Link to="/directory" className="back">← Back to the directory</Link>
       <div className="card-top spaced">
         <LevelBadge level={p.level} />
         <span className="where">{where(p)}</span>

@@ -19,7 +19,7 @@ export default function Browse() {
         <h2 className="section-title">By hub stage</h2>
         <div className="stage-grid">
           {STAGES.map((s, i) => (
-            <Link key={s} to={`/?stage=${s}`} className="card stage-card">
+            <Link key={s} to={`/directory?stage=${s}`} className="card stage-card">
               <span className="step">0{i + 1}</span>
               <h3>{s}</h3>
               <p>{STAGE_HINTS[s]}</p>
@@ -31,7 +31,7 @@ export default function Browse() {
         <h2 className="section-title spaced-top">By what you need to pay for</h2>
         <div className="need-grid">
           {NEEDS.map((n) => (
-            <Link key={n.key} to={`/?need=${n.key}`} className="card need-card">
+            <Link key={n.key} to={`/directory?need=${n.key}`} className="card need-card">
               <h3>{n.label}</h3>
               <p>{n.hint}</p>
               <span className="count">{count((p) => p.needs.includes(n.key))} programs →</span>
@@ -42,7 +42,7 @@ export default function Browse() {
         <h2 className="section-title spaced-top">By type of funding</h2>
         <div className="need-grid two">
           {KINDS.map((k) => (
-            <Link key={k.key} to={`/?kind=${k.key}`} className="card need-card kind-card">
+            <Link key={k.key} to={`/directory?kind=${k.key}`} className="card need-card kind-card">
               <h3>{k.label}</h3>
               <span className="count">{count((p) => p.kinds.includes(k.key))} programs →</span>
             </Link>

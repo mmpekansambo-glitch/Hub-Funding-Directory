@@ -31,7 +31,7 @@ export default function About() {
         Funding rounds open, close and change every year. If you know about a program we're missing or a detail
         that's changed, we'd love to hear from you.
       </p>
-      <Link to="/" className="btn">Browse programs</Link>
+      <Link to="/directory" className="btn">Browse programs</Link>
     </div>
   )
 }

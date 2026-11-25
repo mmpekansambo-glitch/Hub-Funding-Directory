@@ -51,7 +51,7 @@ export default function StatePage() {
       <div className="callout slim">
         <p>
           Hubs in {STATE_NAMES[c]} can also apply to <strong>{national.length} national programs</strong>.{' '}
-          <Link to={`/?state=${c}`}>See everything available in {STATE_NAMES[c]} →</Link>
+          <Link to={`/directory?state=${c}`}>See everything available in {STATE_NAMES[c]} →</Link>
         </p>
       </div>
     </div>

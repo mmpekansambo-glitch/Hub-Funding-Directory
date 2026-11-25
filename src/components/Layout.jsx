@@ -35,7 +35,7 @@ export default function Layout() {
             </span>
           </Link>
           <nav className="nav">
-            <NavLink to="/" end>Directory</NavLink>
+            <NavLink to="/directory">Directory</NavLink>
             <NavLink to="/browse">Browse</NavLink>
             <NavLink to="/states">By state</NavLink>
             <NavLink to="/about">About</NavLink>

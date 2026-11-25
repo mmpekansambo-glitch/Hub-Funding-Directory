@@ -4,9 +4,10 @@ A simple public website that helps food hub operators, especially new hubs, find
 
 ## Pages
 
-- **Home**: search, "start with your stage", and the ten strongest state funding environments
-- **Programs** (`/programs`): search and filter by hub stage, state, type (federal, state, private) and timing
+- **Landing** (`/`): headline, search, how it works, stats and a preview of popular programs
+- **Directory** (`/directory`): yellow-pages style lookup. Search plus filters for funding type, need, hub stage, state, funder and timing; results in a table (A to Z when unfiltered)
 - **Program detail** (`/programs/:id`): award, match, deadlines, eligibility and source link
+- **Browse** (`/browse`): tiles by stage, need, type and state
 - **By state** (`/states`, `/states/:code`): every state's programs, largest award, and where nothing was found
 - **About**
 

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Browse from './pages/Browse.jsx'
+import Landing from './pages/Landing.jsx'
 import Directory from './pages/Directory.jsx'
 import Program from './pages/Program.jsx'
 import States from './pages/States.jsx'
@@ -12,7 +13,8 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route index element={<Directory />} />
+        <Route index element={<Landing />} />
+        <Route path="directory" element={<Directory />} />
         <Route path="programs" element={<Directory />} />
         <Route path="programs/:id" element={<Program />} />
         <Route path="browse" element={<Browse />} />
