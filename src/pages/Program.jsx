@@ -41,7 +41,7 @@ export default function Program() {
       </div>
 
       {unverified && (
-        <p className="note">Some details below are marked unverified in our research. Check them with the funder.</p>
+        <p className="note">Some details unverified.</p>
       )}
 
       <dl className="detail">

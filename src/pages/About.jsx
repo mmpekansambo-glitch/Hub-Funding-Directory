@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 export default function About() {
   return (
     <div className="wrap pad narrow prose">
-      <p className="kicker">About</p>
       <h1 className="page-title">Why this directory exists</h1>
       <p className="lede dark">
         Food hubs sit in the missing middle between farms and the people who buy their food. They are hard to

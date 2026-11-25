@@ -19,7 +19,7 @@ export default function StatePage() {
   return (
     <div className="wrap pad">
       <Link to="/states" className="back">← All states</Link>
-      <p className="kicker">{s.rank ? `Ranked #${s.rank} of 51` : 'State profile'}</p>
+      {s.rank && <p className="kicker">#{s.rank} of 51</p>}
       <h1 className="page-title">{STATE_NAMES[c]}</h1>
       {s.why && <p className="lede dark">{s.why}</p>}
 
@@ -31,7 +31,7 @@ export default function StatePage() {
       {programs.length ? (
         <ProgramTable title={`Programs in ${STATE_NAMES[c]} · ${programs.length}`} programs={programs} />
       ) : (
-        <p className="muted">No state-specific programs found yet.</p>
+        <p className="muted">No state programs found.</p>
       )}
 
       {gaps.length > 0 && (
@@ -49,10 +49,7 @@ export default function StatePage() {
       )}
 
       <div className="callout slim">
-        <p>
-          Hubs in {STATE_NAMES[c]} can also apply to <strong>{national.length} national programs</strong>.{' '}
-          <Link to={`/directory?state=${c}`}>See everything available in {STATE_NAMES[c]} →</Link>
-        </p>
+        <p><Link to={`/directory?state=${c}`}>+ {national.length} national programs →</Link></p>
       </div>
     </div>
   )

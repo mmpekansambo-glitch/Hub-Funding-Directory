@@ -12,9 +12,7 @@ export default function States() {
 
   return (
     <div className="wrap pad">
-      <p className="kicker">By state</p>
-      <h1 className="page-title">State funding environments</h1>
-      <p className="muted intro">{data.method || 'Every state and DC was checked for hub-eligible programs.'}</p>
+      <h1 className="page-title">States</h1>
 
       <h2 className="section-title">Top ten</h2>
       <div className="top-grid">

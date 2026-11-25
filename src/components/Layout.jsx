@@ -33,7 +33,6 @@ export default function Layout() {
             <Flower />
             <span>
               <strong>The Hub Directory</strong>
-              <small>Funding for food hubs</small>
             </span>
           </Link>
           <nav className="nav">
@@ -45,16 +44,13 @@ export default function Layout() {
         </div>
       </header>
       <main id="main">
-        {loading && <div className="wrap pad"><p className="muted">Loading the directory…</p></div>}
+        {loading && <div className="wrap pad"><p className="muted">Loading…</p></div>}
         {error && <div className="wrap pad"><p>Sorry, the directory could not load. Please refresh.</p></div>}
         {data && <Outlet />}
       </main>
       <footer className="footer">
         <div className="wrap footer-inner">
-          <p>
-            <strong>The Hub Directory</strong> · grants, loans and state programs for food hubs. Programs were last checked on{' '}
-            {data?.verified || '2026-11-22'}. Always confirm details with the funder before applying.
-          </p>
+          <p><strong>The Hub Directory</strong> · Last checked {data?.verified || '2026-11-22'}</p>
         </div>
       </footer>
     </div>

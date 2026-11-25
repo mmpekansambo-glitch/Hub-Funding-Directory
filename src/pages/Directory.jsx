@@ -56,14 +56,13 @@ export default function Directory() {
     status && STATUS_LABEL[status],
     q && `“${q}”`,
   ].filter(Boolean)
-  const title = `${filtered ? label.join(' · ') : 'All programs, A to Z'} · ${results.length} program${results.length === 1 ? '' : 's'}`
+  const title = `${filtered ? label.join(' · ') : 'A to Z'} · ${results.length} program${results.length === 1 ? '' : 's'}`
   const letters = [...new Set(results.map(letterOf))]
 
   return (
     <>
       <section className="lookup">
         <div className="wrap">
-          <p className="kicker">Grants, loans and state programs for food hubs</p>
           <h1 className="lookup-title">The Hub Directory</h1>
           <div className="lookup-search" role="search">
             <label htmlFor="q" className="sr-only">Search programs</label>
@@ -71,7 +70,7 @@ export default function Directory() {
               id="q"
               value={q}
               onChange={(e) => set('q', e.target.value)}
-              placeholder="Search by name, funder or need, like “cold storage” or “USDA”"
+              placeholder="Search programs"
             />
           </div>
           <div className="filters">
@@ -126,7 +125,6 @@ export default function Directory() {
               </label>
             )}
             {filtered && <button className="link" onClick={() => setParams({}, { replace: true })}>Clear filters</button>}
-            <Link to="/browse" className="link-quiet">Not sure where to start? Browse by stage, need or state →</Link>
           </div>
         </div>
       </section>
@@ -142,11 +140,10 @@ export default function Directory() {
             title={title}
             programs={results}
             letters={!filtered}
-            footer="Details are checked by hand. Always confirm the current round with the funder."
           />
         ) : (
           <div className="empty">
-            <p>No programs match those filters. Try a broader search or clear a filter.</p>
+            <p>No matches.</p>
           </div>
         )}
       </div>

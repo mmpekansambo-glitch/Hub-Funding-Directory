@@ -1,13 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useData } from '../DataContext.jsx'
-import { STAGES, STAGE_HINTS, NEEDS, KINDS, LEVELS } from '../data.js'
-
-const LEVEL_HINTS = {
-  Federal: 'USDA, SBA and other national agencies',
-  State: 'State agriculture and economic development programs',
-  Private: 'CDFIs, lenders, foundations and nonprofits',
-}
+import { STAGES, NEEDS, KINDS, LEVELS } from '../data.js'
 
 const CUTS = [
   { key: 'stage', label: 'Hub stage', hint: 'Where your hub is today', icon: 'M3 17l6-6 4 4 8-8M14 7h7v7' },
@@ -53,9 +47,7 @@ export default function Browse() {
 
   return (
     <div className="wrap pad">
-      <p className="kicker">Browse</p>
-      <h1 className="page-title">How do you want to look?</h1>
-      <p className="muted intro">Pick one way to cut the directory, then choose where to go.</p>
+      <h1 className="page-title">Browse</h1>
 
       <div className="cuts" role="tablist" aria-label="Ways to browse">
         {CUTS.map((c) => (
@@ -69,7 +61,6 @@ export default function Browse() {
           >
             <span className="ficon"><Icon d={c.icon} /></span>
             <strong>{c.label}</strong>
-            <small>{c.hint}</small>
           </button>
         ))}
       </div>
@@ -87,7 +78,6 @@ export default function Browse() {
                 <Link key={s} to={`/directory?stage=${s}`} className="card stage-card">
                   <span className="step">0{i + 1}</span>
                   <h3>{s}</h3>
-                  <p>{STAGE_HINTS[s]}</p>
                   <span className="count">{count((p) => p.stages.includes(s))} programs →</span>
                 </Link>
               ))}
@@ -97,7 +87,7 @@ export default function Browse() {
           {by === 'need' && (
             <div className="need-grid">
               {NEEDS.map((n) => (
-                <Option key={n.key} to={`/directory?need=${n.key}`} title={n.label} hint={n.hint} count={count((p) => p.needs.includes(n.key))} />
+                <Option key={n.key} to={`/directory?need=${n.key}`} title={n.label} count={count((p) => p.needs.includes(n.key))} />
               ))}
             </div>
           )}
@@ -113,7 +103,7 @@ export default function Browse() {
           {by === 'funder' && (
             <div className="need-grid">
               {LEVELS.map((l) => (
-                <Option key={l} to={`/directory?level=${l}`} title={l} hint={LEVEL_HINTS[l]} count={count((p) => p.level === l)} />
+                <Option key={l} to={`/directory?level=${l}`} title={l} count={count((p) => p.level === l)} />
               ))}
             </div>
           )}
@@ -128,16 +118,11 @@ export default function Browse() {
                   </Link>
                 ))}
               </div>
-              <p className="muted small">
-                Highlighted states are the ten strongest funding environments for food hubs.{' '}
-                <Link to="/states">See state profiles →</Link>
-              </p>
+              <p className="muted small"><Link to="/states">State profiles →</Link></p>
             </>
           )}
         </section>
-      ) : (
-        <p className="cut-empty">Choose one of the cards above to see your options.</p>
-      )}
+      ) : null}
     </div>
   )
 }
